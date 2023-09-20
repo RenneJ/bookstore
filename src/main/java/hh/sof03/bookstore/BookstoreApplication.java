@@ -18,8 +18,8 @@ public class BookstoreApplication {
 	@Bean
 	public CommandLineRunner demo(BookRepository repository) {
 	return (args) -> {
-		Book a = new Book("Introduction to Titles", "Titus Matrix", 1985, "thisIsISBN", 19.99);
-		Book b = new Book("Titles: Best Practices", "Margaret Nearwood", 1994, "anotherISBN", 25.25);
+		Book a = new Book("Introduction to Titles", "Titus Matrix", 1985, "123-456-78910-1-1", 19.99);
+		Book b = new Book("Titles: Best Practices", "Margaret Nearwood", 1994, "321-654-01987-1-1", 25.25);
 		
 		repository.save(a);
 		repository.save(b);
