@@ -42,10 +42,10 @@ public class MainController {
 	@GetMapping(value = "/delete/{id}")
 	public String deleteBook(@PathVariable("id") Long id, Model model) {
 		repo.deleteById(id);
-		return "redirect:../booklist";
+		return "redirect:/booklist";
 	}
 	
-	@RequestMapping(value = "/edit/{id}")
+	@GetMapping(value = "/edit/{id}")
 	public String editBook(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("book", repo.findById(id));
 		return "editbook";

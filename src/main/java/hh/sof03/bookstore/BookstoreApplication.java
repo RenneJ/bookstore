@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 import hh.sof03.bookstore.domain.Book;
 
 import hh.sof03.bookstore.domain.BookRepository;
+import hh.sof03.bookstore.domain.Category;
+import hh.sof03.bookstore.domain.CategoryRepository;
 
 @SpringBootApplication
 public class BookstoreApplication {
@@ -14,17 +16,27 @@ public class BookstoreApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BookstoreApplication.class, args);
 	}
+
+	@Bean
+	public CommandLineRunner bookDemo(BookRepository repository) {
+		return (args) -> {
+			Book a = new Book("Introduction to Titles", "Stephen Monarch", 1985, "123-456-78910-1-1", 19.99);
+			Book b = new Book("Titles: Best Practices", "Margaret Nearwood", 1994, "321-654-01987-1-1", 25.25);
+
+			repository.save(a);
+			repository.save(b);
+		};
+	}
 	
 	@Bean
-	public CommandLineRunner demo(BookRepository repository) {
-	return (args) -> {
-		Book a = new Book("Introduction to Titles", "Titus Matrix", 1985, "123-456-78910-1-1", 19.99);
-		Book b = new Book("Titles: Best Practices", "Margaret Nearwood", 1994, "321-654-01987-1-1", 25.25);
-		
-		repository.save(a);
-		repository.save(b);
-	};
+	public CommandLineRunner categoryDemo(CategoryRepository repository) {
+		return (args) -> {
+			Category a = new Category("Scifi");
+			Category b = new Category("Non-fiction");
+			
+			repository.save(a);
+			repository.save(b);
+		};
 	}
-
 
 }
