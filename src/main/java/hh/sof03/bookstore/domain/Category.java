@@ -27,11 +27,11 @@ public class Category {
 		super();
 		this.name = name;
 	}
-	public Long getCategoryId() {
+	public Long getCategoryid() {
 		return categoryid;
 	}
-	public void setCategoryId(Long categoryId) {
-		this.categoryid = categoryId;
+	public void setCategoryid(Long categoryid) {
+		this.categoryid = categoryid;
 	}
 	public String getName() {
 		return name;
