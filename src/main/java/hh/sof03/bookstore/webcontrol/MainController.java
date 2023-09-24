@@ -5,7 +5,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import hh.sof03.bookstore.domain.Book;
 import hh.sof03.bookstore.domain.BookRepository;
@@ -14,7 +13,7 @@ import hh.sof03.bookstore.domain.BookRepository;
 public class MainController {
 	
 	@Autowired
-	private BookRepository repo;
+	private BookRepository bookRepo;
 	
 	@GetMapping(value = "/index")
 	public String bookStore(Model model) {
@@ -23,7 +22,7 @@ public class MainController {
 
 	@GetMapping(value = "/booklist")
 	public String bookList(Model model) {
-		model.addAttribute("books", repo.findAll());
+		model.addAttribute("books", bookRepo.findAll());
 		return "booklist";
 	}
 	
@@ -35,19 +34,19 @@ public class MainController {
 	
 	@PostMapping(value = "/save")
 	public String saveBook(Book book) {
-		repo.save(book);
+		bookRepo.save(book);
 		return "redirect:booklist";
 	}
 	
 	@GetMapping(value = "/delete/{id}")
 	public String deleteBook(@PathVariable("id") Long id, Model model) {
-		repo.deleteById(id);
+		bookRepo.deleteById(id);
 		return "redirect:/booklist";
 	}
 	
 	@GetMapping(value = "/edit/{id}")
 	public String editBook(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("book", repo.findById(id));
+		model.addAttribute("book", bookRepo.findById(id));
 		return "editbook";
 	}
 }
