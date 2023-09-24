@@ -18,24 +18,17 @@ public class BookstoreApplication {
 	}
 
 	@Bean
-	public CommandLineRunner bookDemo(BookRepository repository) {
+	public CommandLineRunner bookDemo(BookRepository bookRepo, CategoryRepository catRepo) {
 		return (args) -> {
-			Book a = new Book("Introduction to Titles", "Stephen Monarch", 1985, "123-456-78910-1-1", 19.99);
-			Book b = new Book("Titles: Best Practices", "Margaret Nearwood", 1994, "321-654-01987-1-1", 25.25);
-
-			repository.save(a);
-			repository.save(b);
-		};
-	}
-	
-	@Bean
-	public CommandLineRunner categoryDemo(CategoryRepository repository) {
-		return (args) -> {
-			Category a = new Category("Scifi");
-			Category b = new Category("Non-fiction");
+			Category catA = new Category("Scifi");
+			catRepo.save(catA);
+			Category catB = new Category("Non-fiction");
+			catRepo.save(catB);	
 			
-			repository.save(a);
-			repository.save(b);
+			Book bookA = new Book("Introduction to Titles", "Stephen Monarch", 1985, "123-456-78910-1-1", 19.99, catA);
+			bookRepo.save(bookA);
+			Book bookB = new Book("Titles: Best Practices", "Margaret Nearwood", 1994, "321-654-01987-1-1", 25.25, catB);
+			bookRepo.save(bookB);
 		};
 	}
 
