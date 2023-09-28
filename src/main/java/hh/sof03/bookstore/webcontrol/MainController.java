@@ -51,6 +51,7 @@ public class MainController {
 	@GetMapping(value = "/edit/{id}")
 	public String editBook(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("book", bookRepo.findById(id));
+		model.addAttribute("categories", catRepo.findAll());
 		return "editbook";
 	}
 }
