@@ -1,5 +1,6 @@
 package hh.sof03.bookstore.webcontrol;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,11 +25,17 @@ public class BookController {
 	private CategoryRepository catRepo;
 	
 	// RESTful methods to return data in JSON
-	@GetMapping(value="/students")
+	// Return all "Book" entities
+	@GetMapping(value="/books")
 	public @ResponseBody List<Book> bookListRest(){
 		return (List<Book>) bookRepo.findAll();
 	}
-
+	
+	// Return one "Book" entity with id matching to input parameter, return null if no matches
+	@GetMapping(value="/books/{id}")
+	public @ResponseBody Optional<Book> getBookRest(@PathVariable("id") Long id) {
+		return bookRepo.findById(id);
+	}
 	
 	// ThymeLeaf methods to return HTML
 	// TODO: Separate controllers?

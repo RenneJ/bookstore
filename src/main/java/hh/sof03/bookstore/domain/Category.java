@@ -19,8 +19,6 @@ public class Category {
 	private Long categoryid;
 	private String name;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
-	//@JsonIgnoreProperties("category")
-	
 	private List<Book> books;
 	
 	public Category() {
