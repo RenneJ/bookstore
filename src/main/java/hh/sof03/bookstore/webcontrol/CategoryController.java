@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -32,5 +33,10 @@ public class CategoryController {
 	public String saveCategory(Category category) {
 		catRepo.save(category);
 		return "redirect:categorylist";
+	}
+	@GetMapping(value = "/deletecategory/{id}")
+	public String deleteBook(@PathVariable("id") Long id, Model model) {
+		catRepo.deleteById(id);
+		return "redirect:/catgorylist";
 	}
 }

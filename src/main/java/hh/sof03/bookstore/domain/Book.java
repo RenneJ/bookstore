@@ -1,5 +1,7 @@
 package hh.sof03.bookstore.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,6 +23,10 @@ public class Book {
 	private double price;
 	@ManyToOne
 	@JoinColumn(name="categoryid")
+	// This property must be ignored in when sending all books to avoid endless loop
+	// "books" refers to "category.books" in json
+	@JsonIgnoreProperties("books")
+	
 	private Category category;
 	
 	public Book() {
