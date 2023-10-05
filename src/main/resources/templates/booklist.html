@@ -5,21 +5,22 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 </head>
-<body style="padding: 15px">
+<body style = "padding: 15px">
 	<h1>Books</h1>
 	<h2>Logged in as <span sec:authentication = "name"></span></h2>
 	<h2>Roles:
-		<th:block th:each="role, iterStatus:${#authentication.getAuthorities()}">
-	    	<th:block th:if = "${role.getAuthority().startsWith('ROLE_')}" th:text = "${role.getAuthority().replaceFirst('ROLE_', '')}"></th:block>
-	    	<th:block th:if="${!iterStatus.last}">, </th:block>
+		<th:block th:each = "role, iterStatus:${#authentication.getAuthorities()}">
+	    	<th:block th:text = "${role}" ></th:block>
+	    	 <!-- Tämä ehtolauseke ei tee juuri nyt mitään, mutta jos rooleja (authorities-attribuutteja) olisi useampi niin pilkut menisivät oikein-->
+	    	<th:block th:if = "${!iterStatus.last}">, </th:block>
 		</th:block>
 	</h2>
 	<div>
-		<form th:action="@{/logout}" method="post">
-			<input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
+		<form th:action = "@{/logout}" method = "post">
+			<input type = "submit" value = "Sign Out" class = "btn btn-sm btn-danger"/>
 		</form>
 	</div>
-	<table class="table table-striped">
+	<table class = "table table-striped">
 		<tbody>
 			<tr>
 				<th>Author</th>
@@ -28,7 +29,7 @@
 				<th>Year</th>
 				<th>Category</th>
 				<th></th><!-- Extra header so that css looks nice -->
-				<th sec:authorize="hasRole('ADMIN')"> </th>
+				<th sec:authorize="hasAuthority('ADMIN')"> </th>
 			</tr>
 			<tr th:each = "book : ${books}">
 				<td th:text = "${book.author}">Author</td>
@@ -37,15 +38,15 @@
 				<td th:text = "${book.year}">Year</td>
 				<td th:text = "${book.category.name}">Category</td>
 				<td>
-					<a class="btn btn-success" th:href = "@{/edit/{id}(id = ${book.id})}">Edit</a>
+					<a class = "btn btn-success" th:href = "@{/edit/{id}(id = ${book.id})}">Edit</a>
 				</td>
-				<td sec:authorize="hasRole('ADMIN')">
-					<a class="btn btn-danger" th:href = "@{/delete/{id}(id = ${book.id})}">Delete</a>
+				<td sec:authorize = "hasAuthority('ADMIN')">
+					<a class = "btn btn-danger" th:href = "@{/delete/{id}(id = ${book.id})}">Delete</a>
 				</td>
 			</tr>
 		</tbody>
 	</table>
-	<a class="btn btn-success" href = "/add" >New Book</a>
+	<a class = "btn btn-success" href = "/add" >New Book</a>
 
 </body>
 </html>

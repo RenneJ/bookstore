@@ -11,6 +11,8 @@ import hh.sof03.bookstore.domain.Book;
 import hh.sof03.bookstore.domain.BookRepository;
 import hh.sof03.bookstore.domain.Category;
 import hh.sof03.bookstore.domain.CategoryRepository;
+import hh.sof03.bookstore.domain.User;
+import hh.sof03.bookstore.domain.UserRepository;
 
 @SpringBootApplication
 public class BookstoreApplication {
@@ -22,7 +24,7 @@ public class BookstoreApplication {
 	}
 
 	@Bean
-	public CommandLineRunner bookDemo(BookRepository bookRepo, CategoryRepository catRepo) {
+	public CommandLineRunner bookDemo(BookRepository bookRepo, CategoryRepository catRepo, UserRepository userRepo) {
 		return (args) -> {
 			log.info("Create categories");
 			Category catA = new Category("Scifi");
@@ -35,6 +37,11 @@ public class BookstoreApplication {
 			bookRepo.save(bookA);
 			Book bookB = new Book("Titles: Best Practices", "Margaret Nearwood", 1994, "321-654-01987-1-1", 25.25, catB);
 			bookRepo.save(bookB);
+			
+			User userA = new User("ReiskaAdmin", "$2a$12$ywrVDiAdmuAy.0A4K1PapOWMvA6gYllCOzAVfHKzAfV3TvVzjYvAG", "ADMIN");
+			userRepo.save(userA);
+			User userB = new User("ReiskaUser", "$2a$12$/PRAFUlX2hTjY4D5XCAin.THG/OLN6A9NPT8FsVe3Z8DPQxXkqL72", "USER");
+			userRepo.save(userB);
 			
 			log.info("Fetch all categories");
 			for (Category category : catRepo.findAll()) {
