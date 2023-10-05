@@ -5,18 +5,30 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 </head>
-<body>
+<body style="padding: 15px">
 	<h1>Books</h1>
+	<h2>Logged in as <span sec:authentication = "name"></span></h2>
+	<h2>Roles:
+		<th:block th:each="role, iterStatus:${#authentication.getAuthorities()}">
+	    	<th:block th:if = "${role.getAuthority().startsWith('ROLE_')}" th:text = "${role.getAuthority().replaceFirst('ROLE_', '')}"></th:block>
+	    	<th:block th:if="${!iterStatus.last}">, </th:block>
+		</th:block>
+	</h2>
+	<div>
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
+		</form>
+	</div>
 	<table class="table table-striped">
 		<tbody>
 			<tr>
-				<td><h3>Author</h3></td>
-				<td><h3>Title</h3></td>
-				<td><h3>ISBN</h3></td>
-				<td><h3>Year</h3></td>
-				<td><h3>Category</h3></td>
-				<td></td>
-				<td></td>
+				<th>Author</th>
+				<th>Title</th>
+				<th>ISBN</th>
+				<th>Year</th>
+				<th>Category</th>
+				<th></th><!-- Extra header so that css looks nice -->
+				<th sec:authorize="hasRole('ADMIN')"> </th>
 			</tr>
 			<tr th:each = "book : ${books}">
 				<td th:text = "${book.author}">Author</td>
@@ -24,12 +36,16 @@
 				<td th:text = "${book.isbn}">ISBN</td>
 				<td th:text = "${book.year}">Year</td>
 				<td th:text = "${book.category.name}">Category</td>
-				<td><a th:href = "@{/edit/{id}(id = ${book.id})}"><button class="btn btn-success">Edit</button></a></td>
-				<td><a th:href = "@{/delete/{id}(id = ${book.id})}"><button class="btn btn-danger">Delete</button></a></td>
+				<td>
+					<a class="btn btn-success" th:href = "@{/edit/{id}(id = ${book.id})}">Edit</a>
+				</td>
+				<td sec:authorize="hasRole('ADMIN')">
+					<a class="btn btn-danger" th:href = "@{/delete/{id}(id = ${book.id})}">Delete</a>
+				</td>
 			</tr>
 		</tbody>
 	</table>
-	<a href = "/add" ><button class="btn btn-success">New Book</button></a>
+	<a class="btn btn-success" href = "/add" >New Book</a>
 
 </body>
 </html>

@@ -47,7 +47,7 @@ public class WebSecurityConfig {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
         UserDetails user1 = User
-        		.withUsername("user")
+        		.withUsername("ReiskaUser")
         		.password(passwordEncoder.encode("user"))
         		.roles("USER")
         		.build();
@@ -55,7 +55,7 @@ public class WebSecurityConfig {
         users.add(user1);
 
         UserDetails user2 = User
-        		.withUsername("admin")
+        		.withUsername("ReiskaAdmin")
         		.password(passwordEncoder.encode("admin"))
         		.roles("USER", "ADMIN")
         		.build();
