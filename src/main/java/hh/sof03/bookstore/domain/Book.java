@@ -14,7 +14,7 @@ import jakarta.persistence.ManyToOne;
 public class Book {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long id;
+	private long bookid;
 	private String title;
 	private String author;
 	@Column(name="publishing_year")
@@ -42,10 +42,10 @@ public class Book {
 		this.category = category;
 	}
 	public long getId() {
-		return id;
+		return bookid;
 	}
-	public void setId(long id) {
-		this.id = id;
+	public void setId(long bookid) {
+		this.bookid = bookid;
 	}
 	public String getTitle() {
 		return title;
@@ -85,7 +85,7 @@ public class Book {
 	}
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", year=" + year + ", isbn=" + isbn
+		return "Book [bookid=" + bookid + ", title=" + title + ", author=" + author + ", year=" + year + ", isbn=" + isbn
 				+ ", price=" + price + ", category=" + category + "]";
 	}
 
