@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 
 @Entity(name="users")//H2 database has reserved keyword "User"
 public class User {
-	// Determining constraints for user data fields. All fields are required, id cannot change and user name must be unique
+	// Determining constraints for User data fields. All fields are required, id cannot change and user name must be unique
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "userid", nullable = false, updatable = false)
